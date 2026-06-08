@@ -134,8 +134,9 @@
 </head>
 <body>
 
-    <div class="system-grid"></div>
-    <div id="canvas-container"></div>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-bg focus:z-[100] skip-link text-white">Skip to main content</a>
+    <div class="system-grid" aria-hidden="true"></div>
+    <div id="canvas-container" aria-hidden="true"></div>
 
     <!-- GLOBAL NAVIGATION -->
     <nav class="sticky top-0 z-50 bg-bg/80 backdrop-blur-md border-b border-border-thin py-5">
@@ -147,8 +148,8 @@
             <div class="hidden lg:flex gap-8 text-[0.65rem] font-body uppercase tracking-widest text-text-muted">
                 <a href="/infrastructure.html" class="hover:text-text-main transition-colors">Infrastructure</a>
                 <div class="relative group">
-                    <a href="#" class="hover:text-text-main transition-colors cursor-pointer">Systems</a>
-                    <div class="absolute left-0 mt-2 w-48 bg-bg border border-border-thin hidden group-hover:flex flex-col z-50 shadow-xl">
+                    <a href="#" class="hover:text-text-main transition-colors cursor-pointer" aria-haspopup="true" aria-expanded="false">Systems</a>
+                    <div class="absolute left-0 mt-2 w-48 bg-bg border border-border-thin hidden group-hover:flex group-focus-within:flex flex-col z-50 shadow-xl">
                         <a href="/systems/land.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors">LREIX Land</a>
                         <a href="/systems/landvault.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors">LandVault</a>
                         <a href="/systems/construct.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors">LREIX Construct</a>
@@ -166,6 +167,7 @@
             </div>
         </div>
     </nav>
+    <main id="main-content">
 
     <!-- HERO SECTION -->
     <section class="relative z-10 pt-32 pb-16 min-h-[70vh] flex flex-col justify-center">
@@ -359,7 +361,8 @@
         </div>
     </section>
     
-<footer class="border-t border-border-thin bg-bg pt-16 pb-12 relative z-10">
+    </main>
+    <footer class="border-t border-border-thin bg-bg pt-16 pb-12 relative z-10">
         <div class="container grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12 text-sm text-text-muted reveal">
             <div class="lg:col-span-2">
                 <div class="text-2xl font-body tracking-widest text-text-main mb-1">LREIX</div>
