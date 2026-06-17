@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LREIX | Infrastructure Intelligence Systems</title>
+    <title>About | LREIX Infratech Systems</title>
+    <meta name="description" content="LREIX Infratech Systems — Bengaluru-based legaltech building title risk scoring for Indian land.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
     <script>
         tailwind.config = {
             theme: {
@@ -36,11 +36,8 @@
     </script>
     <style>
         :root {
-            --bg: #0B0B0C;
-            --clay: #FAD9D3;
-            --accent-blue: #4E88B4;
-            --text-main: #E8E4E3;
-            --text-muted: #8A8D91;
+            --bg: #0B0B0C; --clay: #FAD9D3; --accent-blue: #4E88B4;
+            --text-main: #E8E4E3; --text-muted: #8A8D91;
             --grid-line: rgba(255, 255, 255, 0.05);
             --grid-line-strong: rgba(255, 255, 255, 0.08);
             --surface: rgba(255, 255, 255, 0.02);
@@ -49,118 +46,61 @@
         }
         html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: var(--bg); 
-            color: var(--text-main); 
-            font-family: var(--font-body); 
-            -webkit-font-smoothing: antialiased; 
-            overflow-x: hidden;
-        }
-        
-        /* Background Grid */
-        .system-grid { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            pointer-events: none; z-index: -1; 
-            background-size: 24px 24px; 
-            background-image: radial-gradient(circle, var(--grid-line-strong) 1px, transparent 1px); 
-        }
-        #canvas-container { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            z-index: -2; opacity: 0.6; pointer-events: none; 
-        }
-
-        /* Typography & Utilities */
+        body { background-color: var(--bg); color: var(--text-main); font-family: var(--font-body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        .system-grid { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1; background-size: 24px 24px; background-image: radial-gradient(circle, var(--grid-line-strong) 1px, transparent 1px); }
         h1, h2, h3, h4, h5, h6 { font-family: var(--font-body); font-weight: 400; }
         .meta-label { font-family: var(--font-display); font-size: 0.75rem; letter-spacing: 0.15em; color: var(--accent-blue); text-transform: uppercase; }
-        .panel { 
-            background: var(--surface); 
-            border: 1px solid var(--grid-line-strong); 
-            padding: 2.5rem; 
-            transition: all 0.3s ease;
-            position: relative;
-        }
+        .panel { background: var(--surface); border: 1px solid var(--grid-line-strong); padding: 2.5rem; transition: all 0.3s ease; position: relative; }
         .panel:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); }
-        
-        .btn-primary {
-            display: inline-flex; align-items: center; justify-content: center;
-            background: var(--text-main); color: var(--bg);
-            padding: 0.85rem 1.5rem; border-radius: 2px;
-            font-family: var(--font-body); text-transform: uppercase; letter-spacing: 0.1em;
-            transition: all 0.2s; font-size: 0.75rem; font-weight: 500; border: 1px solid var(--text-main);
-            gap: 0.5rem;
-        }
+        .btn-primary { display: inline-flex; align-items: center; justify-content: center; background: var(--text-main); color: var(--bg); padding: 0.85rem 1.5rem; border-radius: 2px; font-family: var(--font-body); text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.2s; font-size: 0.75rem; font-weight: 500; border: 1px solid var(--text-main); gap: 0.5rem; text-decoration: none; }
         .btn-primary:hover { background: transparent; color: var(--text-main); }
-        .btn-secondary {
-            display: inline-flex; align-items: center; justify-content: center;
-            background: transparent; color: var(--text-main);
-            padding: 0.85rem 1.5rem; border-radius: 2px; border: 1px solid var(--grid-line-strong);
-            font-family: var(--font-body); text-transform: uppercase; letter-spacing: 0.1em;
-            transition: all 0.2s; font-size: 0.75rem; font-weight: 500; gap: 0.5rem;
-        }
+        .btn-secondary { display: inline-flex; align-items: center; justify-content: center; background: transparent; color: var(--text-main); padding: 0.85rem 1.5rem; border-radius: 2px; border: 1px solid var(--grid-line-strong); font-family: var(--font-body); text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.2s; font-size: 0.75rem; font-weight: 500; gap: 0.5rem; text-decoration: none; }
         .btn-secondary:hover { border-color: var(--text-main); color: var(--text-main); }
-
-        /* Structure */
-        .section-padding { padding: 8rem 0; }
+        .section-padding { padding: 6rem 0; }
         .container { max-width: 1300px; margin: 0 auto; padding: 0 2rem; }
-        
-        .list-disc-custom li {
-            position: relative; padding-left: 1.25rem; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.85rem;
-        }
-        .list-disc-custom li::before {
-            content: ''; position: absolute; left: 0; top: 0.4rem; width: 4px; height: 4px; border-radius: 50%; background: var(--text-muted);
-        }
-
-        .layer-item {
-            position: relative; padding-left: 2rem; margin-bottom: 2rem; border-left: 1px solid var(--grid-line-strong);
-        }
-        .layer-item::before {
-            content: ''; position: absolute; left: -4px; top: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-blue);
-            box-shadow: 0 0 10px var(--accent-blue);
-        }
-        
-        .card-arrow {
-            position: absolute; bottom: 1.5rem; right: 1.5rem; color: var(--text-muted); transition: color 0.3s, transform 0.3s; font-size: 1.2rem;
-        }
-        .panel:hover .card-arrow { color: var(--text-main); transform: translateX(4px); }
-        
-        .glowing-dot {
-            width: 8px; height: 8px; border-radius: 50%; background: var(--accent-blue);
-            box-shadow: 0 0 10px var(--accent-blue); display: inline-block;
-        }
-        
-        /* Reveal Animation Classes */
+        .list-disc-custom li { position: relative; padding-left: 1.25rem; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.85rem; }
+        .list-disc-custom li::before { content: ''; position: absolute; left: 0; top: 0.4rem; width: 4px; height: 4px; border-radius: 50%; background: var(--text-muted); }
+        .layer-item { position: relative; padding-left: 2rem; margin-bottom: 2rem; border-left: 1px solid var(--grid-line-strong); }
+        .layer-item::before { content: ''; position: absolute; left: -4px; top: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
+        .glowing-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); display: inline-block; }
         .reveal { opacity: 0; transform: translateY(30px); }
+        .status-live { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #34d399; }
+        .status-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px #34d399; }
+        .status-dev { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #fbbf24; }
+        .status-dev::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fbbf24; box-shadow: 0 0 8px #fbbf24; }
+        .status-planned { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+        .status-planned::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted); }
+        .prose p { margin-bottom: 1.25rem; color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; }
+        .prose h2 { font-size: 1.5rem; font-weight: 500; color: var(--text-main); margin: 2.5rem 0 1rem; }
+        .prose h3 { font-size: 1.15rem; font-weight: 500; color: var(--text-main); margin: 2rem 0 0.75rem; }
+        .prose a { color: var(--accent-blue); text-decoration: underline; }
+        .prose blockquote { border-left: 2px solid var(--accent-blue); padding-left: 1.5rem; margin: 1.5rem 0; font-style: italic; }
     </style>
 </head>
 <body>
-
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-bg focus:z-[100] skip-link text-white">Skip to main content</a>
     <div class="system-grid" aria-hidden="true"></div>
-    <div id="canvas-container" aria-hidden="true"></div>
 
-    <!-- GLOBAL NAVIGATION -->
     <nav class="sticky top-0 z-50 bg-bg/80 backdrop-blur-md border-b border-border-thin py-5">
         <div class="container flex justify-between items-center">
-            <div class="flex flex-col">
-                <div class="text-2xl font-body tracking-widest text-text-main">LREIX</div>
+            <a href="index.html" class="flex flex-col no-underline">
+                <div class="text-2xl tracking-widest text-text-main">LREIX</div>
                 <div class="text-[0.55rem] font-display tracking-widest text-text-muted mt-1 uppercase">Infratech Systems</div>
-            </div>
-            <div class="hidden lg:flex gap-8 text-[0.65rem] font-body uppercase tracking-widest text-text-muted">
-                <a href="/infrastructure.html" class="hover:text-text-main transition-colors">Infrastructure</a>
+            </a>
+            <div class="hidden lg:flex gap-8 text-[0.65rem] uppercase tracking-widest text-text-muted">
+                <a href="infrastructure.html" class="hover:text-text-main transition-colors">Infrastructure</a>
                 <div class="relative group">
                     <a href="#" class="hover:text-text-main transition-colors cursor-pointer" aria-haspopup="true" aria-expanded="false">Systems</a>
                     <div class="absolute left-0 mt-2 w-48 bg-bg border border-border-thin hidden group-hover:flex group-focus-within:flex flex-col z-50 shadow-xl">
-                        <a href="/systems/land.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors">LREIX Land</a>
-                        <a href="/systems/landvault.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors">LandVault</a>
-                        <a href="/systems/construct.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors">LREIX Construct</a>
-                        <a href="/systems/geo.html" class="px-4 py-3 hover:bg-white/[0.02] transition-colors">LREIX Geo</a>
+                        <a href="systems/land.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors text-[0.65rem]">LREIX Land <span class="text-[#34d399] ml-1">Live</span></a>
+                        <a href="systems/verify.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors text-[0.65rem]">LREIX Verify <span class="text-[#34d399] ml-1">Live</span></a>
+                        <a href="systems/geo.html" class="px-4 py-3 hover:bg-white/[0.02] transition-colors text-[0.65rem]">LREIX Geo <span class="text-[#fbbf24] ml-1">R&D</span></a>
                     </div>
                 </div>
-                <a href="/research.html" class="hover:text-text-main transition-colors">Research</a>
-                <a href="/partnerships.html" class="hover:text-text-main transition-colors">Partnerships</a>
-                <a href="/about.html" class="hover:text-text-main transition-colors">About Us</a>
-                <a href="#" class="hover:text-text-main transition-colors">Careers</a>
-                <a href="#" class="hover:text-text-main transition-colors">Contact</a>
+                <a href="research.html" class="hover:text-text-main transition-colors">Research</a>
+                <a href="partnerships.html" class="hover:text-text-main transition-colors">Partnerships</a>
+                <a href="about.html" class="hover:text-text-main transition-colors">About</a>
+                <a href="contact.html" class="hover:text-text-main transition-colors">Contact</a>
             </div>
             <div class="hidden lg:flex items-center justify-center w-8 h-8 rounded-full border border-border-thin">
                 <div class="glowing-dot" style="width: 6px; height: 6px;"></div>
@@ -169,349 +109,97 @@
     </nav>
     <main id="main-content">
 
-    <!-- HERO SECTION -->
-    <section class="relative z-10 pt-32 pb-16 min-h-[70vh] flex flex-col justify-center">
-        <div class="container grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="reveal">
-                <div class="meta-label mb-6">ABOUT LREIX</div>
-                <h1 class="text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-8 text-text-main font-light tracking-tight">
-                    Building the Missing Intelligence Layer
-                </h1>
-                <div class="text-lg text-text-muted mb-6 leading-relaxed max-w-lg space-y-4">
-                    <p>Modern infrastructure depends on information.</p>
-                    <p>Yet critical information remains fragmented across records, documents, maps, institutions, operational systems, and disconnected databases.</p>
-                    <p>Land ownership records exist separately from legal records. Infrastructure information exists separately from geospatial intelligence. Verification processes exist separately from operational decision-making.</p>
-                </div>
-                <div class="text-lg text-text-main mb-10 leading-relaxed max-w-lg space-y-4 font-light border-l border-accent-blue pl-6">
-                    <p>LREIX exists to connect these fragmented systems.</p>
-                    <p>We develop intelligence infrastructure designed to transform disconnected information into structured decision environments.</p>
-                </div>
-            </div>
-            <div class="hidden lg:block relative h-full min-h-[400px]">
-                <!-- Graph animation placeholder handled by canvas -->
+    <section class="pt-24 pb-16 relative z-10">
+        <div class="container max-w-4xl">
+            <div class="meta-label mb-6 reveal">ABOUT LREIX</div>
+            <h1 class="text-4xl md:text-6xl font-light tracking-tight mb-8 reveal">Why We're Building This</h1>
+            <div class="space-y-6 reveal">
+                <p class="text-text-muted leading-relaxed">LREIX Infratech Systems Private Limited is a Bengaluru-based legaltech company building risk intelligence infrastructure for land transactions in India.</p>
+                <p class="text-text-muted leading-relaxed">India has spent over a decade digitizing land records — and digitization alone hasn't made land safer to transact in. A digitized record can still hide a cancelled allotment, an unresolved court case, or a government land overlap.</p>
+                <p class="text-text-muted leading-relaxed"><strong class="text-text-main">LREIX closes the specific gap between what's digitized and what's actually cross-verified</strong>, for the law firms and lenders who carry the legal and financial risk when it goes wrong.</p>
+                <p class="text-text-muted leading-relaxed text-sm">We're a Karnataka-incorporated company (CIN: U62099KA2026PTC218314), built first for Bengaluru's revenue and urban land markets, with a thesis that this cross-verification layer is infrastructure India's land system needs everywhere.</p>
             </div>
         </div>
     </section>
 
-    <!-- WHO WE ARE -->
-    <section class="section-padding relative z-10 border-t border-border-thin bg-bg/40">
-        <div class="container">
-            <div class="max-w-3xl reveal">
-                <div class="meta-label mb-3">WHO WE ARE</div>
-                <h2 class="text-3xl md:text-4xl font-light text-text-main mb-8">An Infrastructure Intelligence Company</h2>
-                <div class="text-text-muted leading-relaxed space-y-6">
-                    <p>LREIX INFRATECH SYSTEMS develops intelligence infrastructure designed to improve visibility, verification, and analytical decision-making across complex operational environments.</p>
-                    <p>The company operates at the intersection of:</p>
-                    <ul class="list-disc-custom mb-6 grid grid-cols-2 gap-2">
-                        <li>Land Intelligence</li>
-                        <li>Construction Intelligence</li>
-                        <li>Geospatial Systems</li>
-                        <li>Verification Infrastructure</li>
-                        <li>Decision Support Systems</li>
-                    </ul>
-                    <p>Rather than building isolated software products, LREIX focuses on creating interoperable intelligence environments capable of integrating information from multiple domains into a unified analytical framework.</p>
-                    <p>Our objective is to establish systems that enable organizations to understand relationships, identify risk, verify information, and make better-informed decisions.</p>
+    <!-- Vision -->
+    <section class="section-padding relative z-10 border-t border-border-thin">
+        <div class="container max-w-4xl">
+            <div class="meta-label mb-6 reveal">OUR VISION</div>
+            <h2 class="text-3xl font-light mb-8 reveal">Title Risk Should Be a Number, Not a Guess</h2>
+            <div class="space-y-6 reveal">
+                <p class="text-text-muted leading-relaxed">Right now, whether land is safe to lend against or buy depends on which lawyer you hired and how thorough the local broker happened to be. We think that's a solvable infrastructure problem.</p>
+                <p class="text-text-muted leading-relaxed">Our vision is a Title Risk Score that works the way a credit score does for debt — structured, explainable, auditable, built by cross-referencing every government source that actually matters: Bhoomi, Kaveri, BBMP, BDA, eCourts, and GIS.</p>
+                <p class="text-text-muted leading-relaxed">We're starting in Bengaluru because that's where we can verify our own accuracy against real records. The thesis scales to every Indian state running its own version of the same fragmented system.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership -->
+    <section class="section-padding relative z-10 bg-black/40 border-y border-border-thin">
+        <div class="container max-w-4xl">
+            <div class="meta-label mb-6 reveal">LEADERSHIP</div>
+            <h2 class="text-2xl font-light mb-10 reveal">Team</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="panel reveal">
+                    <h3 class="font-medium mb-1">Nikhil Sridhara</h3>
+                    <p class="text-accent-blue text-sm mb-3">Founder & Director</p>
+                </div>
+                <div class="panel reveal">
+                    <h3 class="font-medium mb-1">Latha Mahesh</h3>
+                    <p class="text-accent-blue text-sm mb-3">Co-Director</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHY WE EXIST & OUR THESIS -->
-    <section class="section-padding relative z-10 border-t border-border-thin bg-bg/60">
-        <div class="container grid grid-cols-1 md:grid-cols-2 gap-16">
-            <div class="reveal">
-                <div class="meta-label mb-3">WHY WE EXIST</div>
-                <h2 class="text-3xl font-light text-text-main mb-8">Information Is Abundant.<br>Intelligence Is Scarce.</h2>
-                <div class="text-sm text-text-muted leading-relaxed space-y-4">
-                    <p>Organizations today have access to more information than at any point in history. Yet critical decisions are often made with incomplete visibility.</p>
-                    <p>Information remains fragmented across Documents, Databases, Departments, Registries, Maps, Infrastructure Systems, and Operational Records.</p>
-                    <p>The challenge is no longer information availability. The challenge is information integration.</p>
-                    <p class="text-text-main font-light mt-6">LREIX exists because fragmented information creates uncertainty, inefficiency, and risk. Our mission is to transform disconnected information into structured intelligence.</p>
-                </div>
-            </div>
-            <div class="reveal">
-                <div class="meta-label mb-3">INFRASTRUCTURE THESIS</div>
-                <h2 class="text-3xl font-light text-text-main mb-8">Infrastructure Is More<br>Than Physical Assets</h2>
-                <div class="text-sm text-text-muted leading-relaxed space-y-4">
-                    <p>Infrastructure is commonly associated with roads, utilities, buildings, and transportation networks. However, modern infrastructure also depends on information systems.</p>
-                    <p>Without trusted information: Assets cannot be verified. Risks cannot be understood. Relationships remain hidden. Decisions become reactive.</p>
-                    <p>We believe that intelligence infrastructure will become as important as physical infrastructure.</p>
-                    <p class="text-text-main font-light mt-6">Future institutions will increasingly depend on systems capable of connecting information, identifying relationships, and supporting decision-making. LREIX is building toward that future.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- WHAT WE BUILD -->
-    <section class="section-padding relative z-10 border-t border-border-thin bg-bg">
-        <div class="container">
-            <div class="mb-16 reveal">
-                <div class="meta-label mb-3">CAPABILITIES</div>
-                <h2 class="text-3xl md:text-4xl font-light text-text-main">Strategic Intelligence Domains</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-l border-border-thin reveal">
-                <div class="p-8 lg:p-12 border-b border-r border-border-thin hover:bg-white/[0.02] transition-colors">
-                    <h3 class="text-lg text-white mb-2 tracking-wider">LREIX LAND</h3>
-                    <div class="text-text-main mb-6 text-sm">Land Intelligence Infrastructure</div>
-                    <p class="text-sm text-text-muted mb-6">Systems designed to improve visibility into ownership, risk, lineage, transactions, and land-related intelligence.</p>
-                    <ul class="list-disc-custom grid grid-cols-2 gap-2">
-                        <li>Ownership Intelligence</li><li>Parcel Lineage</li><li>Registry Correlation</li><li>Risk Evaluation</li><li>Event Intelligence</li><li>Actor Intelligence</li>
-                    </ul>
-                </div>
-                <div class="p-8 lg:p-12 border-b border-r border-border-thin hover:bg-white/[0.02] transition-colors">
-                    <h3 class="text-lg text-white mb-2 tracking-wider">LREIX CONSTRUCT</h3>
-                    <div class="text-text-main mb-6 text-sm">Construction Intelligence Systems</div>
-                    <p class="text-sm text-text-muted mb-6">Infrastructure analytics designed to improve operational visibility across construction and project environments.</p>
-                    <ul class="list-disc-custom grid grid-cols-2 gap-2">
-                        <li>Project Intelligence</li><li>Resource Visibility</li><li>Construction Monitoring</li><li>Risk Detection</li><li>Operational Analytics</li>
-                    </ul>
-                </div>
-                <div class="p-8 lg:p-12 border-b border-r border-border-thin hover:bg-white/[0.02] transition-colors">
-                    <h3 class="text-lg text-white mb-2 tracking-wider">LREIX GEO</h3>
-                    <div class="text-text-main mb-6 text-sm">Geospatial Intelligence Infrastructure</div>
-                    <p class="text-sm text-text-muted mb-6">Systems that integrate spatial, environmental, infrastructure, and terrain information into advanced analytical environments.</p>
-                    <ul class="list-disc-custom grid grid-cols-2 gap-2">
-                        <li>GIS Analytics</li><li>Terrain Intelligence</li><li>Infrastructure Mapping</li><li>Spatial Relationships</li><li>Geospatial Risk Models</li>
-                    </ul>
-                </div>
-                <div class="p-8 lg:p-12 border-b border-r border-border-thin hover:bg-white/[0.02] transition-colors">
-                    <h3 class="text-lg text-white mb-2 tracking-wider">LREIX VERIFY</h3>
-                    <div class="text-text-main mb-6 text-sm">Verification Infrastructure</div>
-                    <p class="text-sm text-text-muted mb-6">Systems focused on trust, validation, compliance, and evidence-based verification.</p>
-                    <ul class="list-disc-custom grid grid-cols-2 gap-2">
-                        <li>Document Intelligence</li><li>Verification Workflows</li><li>Trust Scoring</li><li>Compliance Analytics</li><li>Institutional Validation</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- HOW WE THINK -->
-    <section class="section-padding relative z-10 border-t border-border-thin bg-bg/40">
-        <div class="container">
-            <div class="mb-16 reveal">
-                <div class="meta-label mb-3">PRINCIPLES</div>
-                <h2 class="text-3xl md:text-4xl font-light text-text-main">The Principles That Guide Our Systems</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 reveal">
-                <div class="panel">
-                    <h3 class="text-lg text-white mb-4">Analytical Rigor</h3>
-                    <p class="text-xs text-text-muted leading-relaxed">Decisions should be supported by evidence rather than assumptions. Our systems prioritize traceability, transparency, and analytical reasoning.</p>
-                </div>
-                <div class="panel">
-                    <h3 class="text-lg text-white mb-4">Verification First</h3>
-                    <p class="text-xs text-text-muted leading-relaxed">Information without verification creates risk. Trust is established through validation, consistency, and evidence.</p>
-                </div>
-                <div class="panel">
-                    <h3 class="text-lg text-white mb-4">Interoperability</h3>
-                    <p class="text-xs text-text-muted leading-relaxed">Information systems should communicate. Disconnected systems create operational blind spots.</p>
-                </div>
-                <div class="panel">
-                    <h3 class="text-lg text-white mb-4">Long-Term Thinking</h3>
-                    <p class="text-xs text-text-muted leading-relaxed">Infrastructure should be designed for decades, not product cycles. Our focus is on building systems that accumulate value over time.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- LONG TERM & RESEARCH -->
-    <section class="section-padding relative z-10 border-t border-border-thin bg-bg">
-        <div class="container grid grid-cols-1 md:grid-cols-2 gap-16">
-            <div class="reveal">
-                <div class="meta-label mb-3">LONG-TERM VISION</div>
-                <h2 class="text-3xl font-light text-text-main mb-6">From Information to Intelligence.<br>From Intelligence to Decisions.</h2>
-                <div class="text-sm text-text-muted leading-relaxed space-y-4 mb-6">
-                    <p>The long-term objective of LREIX is not the development of isolated applications. Our ambition is to contribute toward the creation of intelligence infrastructure capable of supporting institutions operating across land, infrastructure, construction, governance, and analytical environments.</p>
-                    <p>This includes: Land Intelligence, Asset Intelligence, Infrastructure Intelligence, Geospatial Intelligence, Verification Systems, and Decision Support Infrastructure.</p>
-                    <p class="text-text-main">The systems we build today represent foundational steps toward that broader vision.</p>
-                </div>
-            </div>
-            <div class="reveal">
-                <div class="meta-label mb-3">RESEARCH</div>
-                <h2 class="text-3xl font-light text-text-main mb-6">Building Through Understanding</h2>
-                <div class="text-sm text-text-muted leading-relaxed space-y-4 mb-8">
-                    <p>Intelligence systems require more than technology. They require research.</p>
-                    <p>LREIX maintains a growing body of research focused on Land Systems, Geospatial Intelligence, Infrastructure Analytics, Verification Frameworks, Governance Systems, and Risk Intelligence.</p>
-                    <p>Research serves as the foundation upon which future systems are developed.</p>
-                </div>
-                <a href="/research.html" class="btn-secondary">Explore Research Library <span>→</span></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FINAL STATEMENT -->
-    <section class="relative z-10 min-h-[60vh] flex flex-col justify-center border-t border-border-thin bg-bg">
-        <div class="container text-center reveal">
-            <h2 class="text-4xl md:text-6xl font-light text-text-main tracking-tight mb-6">Building Intelligence Infrastructure.</h2>
-            <p class="text-lg md:text-xl text-text-muted font-light tracking-wide max-w-2xl mx-auto space-y-2">
-                <span class="block">For complex operational environments.</span>
-                <span class="block">For evidence-based decisions.</span>
-                <span class="block">For the systems that connect them.</span>
-            </p>
-        </div>
-    </section>
-    
     </main>
-    <footer class="border-t border-border-thin bg-bg pt-16 pb-12 relative z-10">
-        <div class="container grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12 text-sm text-text-muted reveal">
-            <div class="lg:col-span-2">
-                <div class="text-2xl font-body tracking-widest text-text-main mb-1">LREIX</div>
-                <div class="text-[0.55rem] font-display tracking-widest text-text-muted uppercase mb-6">Infratech Systems</div>
-                <p class="text-xs leading-relaxed mb-6 max-w-xs">Infrastructure Intelligence Systems<br>for Analytical Operations.</p>
-                <p class="text-xs text-white/30">&copy; 2024 LREIX Infratech Systems Pvt. Ltd.<br>All rights reserved.</p>
+    <footer class="border-t border-border-thin py-16 mt-24 relative z-10">
+        <div class="container">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div>
+                    <div class="text-xl tracking-widest mb-2">LREIX</div>
+                    <div class="text-[0.6rem] font-display tracking-widest text-text-muted uppercase mb-4">Infratech Systems Private Limited</div>
+                    <p class="text-xs text-text-muted leading-relaxed">Latent Risk Evaluation and Information eXchange</p>
+                    <p class="text-xs text-text-muted mt-2">CIN: U62099KA2026PTC218314</p>
+                </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest text-text-muted mb-4">Platform</h4>
+                    <ul class="space-y-2 text-sm text-text-muted">
+                        <li><a href="infrastructure.html" class="hover:text-text-main transition-colors">Infrastructure</a></li>
+                        <li><a href="systems/land.html" class="hover:text-text-main transition-colors">LREIX Land</a></li>
+                        <li><a href="systems/verify.html" class="hover:text-text-main transition-colors">LREIX Verify</a></li>
+                        <li><a href="systems/geo.html" class="hover:text-text-main transition-colors">LREIX Geo</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest text-text-muted mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-text-muted">
+                        <li><a href="about.html" class="hover:text-text-main transition-colors">About Us</a></li>
+                        <li><a href="research.html" class="hover:text-text-main transition-colors">Research</a></li>
+                        <li><a href="partnerships.html" class="hover:text-text-main transition-colors">Partnerships</a></li>
+                        <li><a href="careers.html" class="hover:text-text-main transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest text-text-muted mb-4">Contact</h4>
+                    <p class="text-sm text-text-muted mb-2">Bengaluru, Karnataka, India</p>
+                    <a href="mailto:info@lreix.com" class="text-sm text-accent-blue hover:text-text-main transition-colors">info@lreix.com</a>
+                </div>
             </div>
-            
-            <div>
-                <h4 class="text-white text-xs tracking-widest uppercase mb-6">Company</h4>
-                <ul class="flex flex-col gap-4 text-xs">
-                    <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Our Vision</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Leadership</a></li>
-                    <li><a href="/careers.html" class="hover:text-white transition-colors">Careers</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 class="text-white text-xs tracking-widest uppercase mb-6">Systems</h4>
-                <ul class="flex flex-col gap-4 text-xs">
-                    <li><a href="#" class="hover:text-white transition-colors uppercase">LREIX Land</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors uppercase">LREIX Construct</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors uppercase">LREIX Geo</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors uppercase">LREIX Verify</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 class="text-white text-xs tracking-widest uppercase mb-6">Resources</h4>
-                <ul class="flex flex-col gap-4 text-xs mb-8">
-                    <li><a href="#" class="hover:text-white transition-colors">Research</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Whitepapers</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Reports</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Insights</a></li>
-                </ul>
-                <h4 class="text-white text-xs tracking-widest uppercase mb-4">Contact</h4>
-                <ul class="flex flex-col gap-2 text-xs">
-                    <li>Bengaluru, Karnataka, India</li>
-                    <li>info@lreix.com</li>
-                    <li>+91 XXXXXXXXXX</li>
-                </ul>
+            <div class="border-t border-border-thin mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-xs text-text-muted">© 2026 LREIX Infratech Systems Private Limited. All rights reserved.</div>
+                <div class="text-[0.6rem] font-display tracking-widest text-text-muted uppercase">Title Risk Intelligence Infrastructure</div>
             </div>
         </div>
     </footer>
-
-    <!-- Three.js 3D Terrain Background -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        const initWebGL = () => {
-            const container = document.getElementById('canvas-container');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 25; 
-            camera.position.y = 10; 
-            camera.rotation.x = -0.4;
-            
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            container.appendChild(renderer.domElement);
-            
-            const geometry = new THREE.PlaneGeometry(120, 120, 150, 150);
-            geometry.rotateX(-Math.PI / 2);
-            
-            const vertexShader = `
-                varying vec2 vUv; 
-                varying float vElevation; 
-                uniform float uTime;
-                
-                void main() {
-                    vUv = uv; 
-                    vec3 pos = position;
-                    
-                    // Complex noise terrain generation
-                    float elevation = sin(pos.x * 0.1 + uTime * 0.1) * cos(pos.z * 0.1 + uTime * 0.1) * 4.0;
-                    elevation += sin(pos.x * 0.2 - uTime * 0.15) * cos(pos.z * 0.2 + uTime * 0.1) * 2.0;
-                    elevation += sin(pos.x * 0.5) * cos(pos.z * 0.5) * 0.5;
-                    
-                    pos.y += elevation; 
-                    vElevation = pos.y;
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-                }
-            `;
-            
-            const fragmentShader = `
-                varying float vElevation;
-                void main() {
-                    float mixStrength = (vElevation + 4.0) / 8.0;
-                    mixStrength = clamp(mixStrength, 0.0, 1.0);
-                    
-                    vec3 clay = vec3(0.98, 0.85, 0.83); // FAD9D3
-                    vec3 darkGrey = vec3(0.3, 0.28, 0.28); 
-                    
-                    vec3 color = mix(darkGrey, clay, mixStrength);
-                    
-                    // Fade out edges and lower elevation parts for depth
-                    float alpha = smoothstep(-3.0, 4.0, vElevation) * 0.6; // slightly more transparent
-                    gl_FragColor = vec4(color, alpha);
-                }
-            `;
-            
-            const material = new THREE.ShaderMaterial({
-                vertexShader, 
-                fragmentShader, 
-                uniforms: { uTime: { value: 0 } }, 
-                wireframe: true, 
-                transparent: true
-            });
-            
-            const plane = new THREE.Mesh(geometry, material);
-            scene.add(plane);
-            
-            let mouseX = 0; 
-            const windowHalfX = window.innerWidth / 2;
-            document.addEventListener('mousemove', (event) => { 
-                mouseX = (event.clientX - windowHalfX) * 0.0005; 
-            });
-            
-            const clock = new THREE.Clock();
-            const animate = () => {
-                requestAnimationFrame(animate);
-                material.uniforms.uTime.value = clock.getElapsedTime();
-                
-                plane.rotation.y += 0.0008; 
-                camera.position.x += (mouseX * 15 - camera.position.x) * 0.05;
-                camera.lookAt(scene.position);
-                
-                renderer.render(scene, camera);
-            };
-            
-            animate();
-            
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        };
-        
         document.addEventListener("DOMContentLoaded", () => {
-            initWebGL();
-            
-            // GSAP Animations
             gsap.registerPlugin(ScrollTrigger);
-            
-            const reveals = document.querySelectorAll('.reveal');
-            reveals.forEach(reveal => {
-                gsap.to(reveal, {
-                    scrollTrigger: {
-                        trigger: reveal,
-                        start: "top 85%",
-                        toggleActions: "play none none none"
-                    },
-                    opacity: 1,
-                    y: 0,
-                    duration: 1.2,
-                    ease: "power3.out"
+            document.querySelectorAll('.reveal').forEach(el => {
+                gsap.to(el, {
+                    scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" },
+                    opacity: 1, y: 0, duration: 1.2, ease: "power3.out"
                 });
             });
         });
