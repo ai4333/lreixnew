@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LREIX | Infrastructure Intelligence Systems</title>
+    <title>LREIX Land | LREIX Infratech Systems</title>
+    <meta name="description" content="Title Risk Scoring for revenue and urban land in Karnataka. Live system.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
     <script>
         tailwind.config = {
             theme: {
@@ -36,11 +36,8 @@
     </script>
     <style>
         :root {
-            --bg: #0B0B0C;
-            --clay: #FAD9D3;
-            --accent-blue: #4E88B4;
-            --text-main: #E8E4E3;
-            --text-muted: #8A8D91;
+            --bg: #0B0B0C; --clay: #FAD9D3; --accent-blue: #4E88B4;
+            --text-main: #E8E4E3; --text-muted: #8A8D91;
             --grid-line: rgba(255, 255, 255, 0.05);
             --grid-line-strong: rgba(255, 255, 255, 0.08);
             --surface: rgba(255, 255, 255, 0.02);
@@ -49,118 +46,61 @@
         }
         html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: var(--bg); 
-            color: var(--text-main); 
-            font-family: var(--font-body); 
-            -webkit-font-smoothing: antialiased; 
-            overflow-x: hidden;
-        }
-        
-        /* Background Grid */
-        .system-grid { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            pointer-events: none; z-index: -1; 
-            background-size: 24px 24px; 
-            background-image: radial-gradient(circle, var(--grid-line-strong) 1px, transparent 1px); 
-        }
-        #canvas-container { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            z-index: -2; opacity: 0.6; pointer-events: none; 
-        }
-
-        /* Typography & Utilities */
+        body { background-color: var(--bg); color: var(--text-main); font-family: var(--font-body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        .system-grid { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1; background-size: 24px 24px; background-image: radial-gradient(circle, var(--grid-line-strong) 1px, transparent 1px); }
         h1, h2, h3, h4, h5, h6 { font-family: var(--font-body); font-weight: 400; }
         .meta-label { font-family: var(--font-display); font-size: 0.75rem; letter-spacing: 0.15em; color: var(--accent-blue); text-transform: uppercase; }
-        .panel { 
-            background: var(--surface); 
-            border: 1px solid var(--grid-line-strong); 
-            padding: 2.5rem; 
-            transition: all 0.3s ease;
-            position: relative;
-        }
+        .panel { background: var(--surface); border: 1px solid var(--grid-line-strong); padding: 2.5rem; transition: all 0.3s ease; position: relative; }
         .panel:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); }
-        
-        .btn-primary {
-            display: inline-flex; align-items: center; justify-content: center;
-            background: var(--text-main); color: var(--bg);
-            padding: 0.85rem 1.5rem; border-radius: 2px;
-            font-family: var(--font-body); text-transform: uppercase; letter-spacing: 0.1em;
-            transition: all 0.2s; font-size: 0.75rem; font-weight: 500; border: 1px solid var(--text-main);
-            gap: 0.5rem;
-        }
+        .btn-primary { display: inline-flex; align-items: center; justify-content: center; background: var(--text-main); color: var(--bg); padding: 0.85rem 1.5rem; border-radius: 2px; font-family: var(--font-body); text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.2s; font-size: 0.75rem; font-weight: 500; border: 1px solid var(--text-main); gap: 0.5rem; text-decoration: none; }
         .btn-primary:hover { background: transparent; color: var(--text-main); }
-        .btn-secondary {
-            display: inline-flex; align-items: center; justify-content: center;
-            background: transparent; color: var(--text-main);
-            padding: 0.85rem 1.5rem; border-radius: 2px; border: 1px solid var(--grid-line-strong);
-            font-family: var(--font-body); text-transform: uppercase; letter-spacing: 0.1em;
-            transition: all 0.2s; font-size: 0.75rem; font-weight: 500; gap: 0.5rem;
-        }
+        .btn-secondary { display: inline-flex; align-items: center; justify-content: center; background: transparent; color: var(--text-main); padding: 0.85rem 1.5rem; border-radius: 2px; border: 1px solid var(--grid-line-strong); font-family: var(--font-body); text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.2s; font-size: 0.75rem; font-weight: 500; gap: 0.5rem; text-decoration: none; }
         .btn-secondary:hover { border-color: var(--text-main); color: var(--text-main); }
-
-        /* Structure */
-        .section-padding { padding: 8rem 0; }
+        .section-padding { padding: 6rem 0; }
         .container { max-width: 1300px; margin: 0 auto; padding: 0 2rem; }
-        
-        .list-disc-custom li {
-            position: relative; padding-left: 1.25rem; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.85rem;
-        }
-        .list-disc-custom li::before {
-            content: ''; position: absolute; left: 0; top: 0.4rem; width: 4px; height: 4px; border-radius: 50%; background: var(--text-muted);
-        }
-
-        .layer-item {
-            position: relative; padding-left: 2rem; margin-bottom: 2rem; border-left: 1px solid var(--grid-line-strong);
-        }
-        .layer-item::before {
-            content: ''; position: absolute; left: -4px; top: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-blue);
-            box-shadow: 0 0 10px var(--accent-blue);
-        }
-        
-        .card-arrow {
-            position: absolute; bottom: 1.5rem; right: 1.5rem; color: var(--text-muted); transition: color 0.3s, transform 0.3s; font-size: 1.2rem;
-        }
-        .panel:hover .card-arrow { color: var(--text-main); transform: translateX(4px); }
-        
-        .glowing-dot {
-            width: 8px; height: 8px; border-radius: 50%; background: var(--accent-blue);
-            box-shadow: 0 0 10px var(--accent-blue); display: inline-block;
-        }
-        
-        /* Reveal Animation Classes */
+        .list-disc-custom li { position: relative; padding-left: 1.25rem; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.85rem; }
+        .list-disc-custom li::before { content: ''; position: absolute; left: 0; top: 0.4rem; width: 4px; height: 4px; border-radius: 50%; background: var(--text-muted); }
+        .layer-item { position: relative; padding-left: 2rem; margin-bottom: 2rem; border-left: 1px solid var(--grid-line-strong); }
+        .layer-item::before { content: ''; position: absolute; left: -4px; top: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
+        .glowing-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); display: inline-block; }
         .reveal { opacity: 0; transform: translateY(30px); }
+        .status-live { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #34d399; }
+        .status-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px #34d399; }
+        .status-dev { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #fbbf24; }
+        .status-dev::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fbbf24; box-shadow: 0 0 8px #fbbf24; }
+        .status-planned { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+        .status-planned::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted); }
+        .prose p { margin-bottom: 1.25rem; color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; }
+        .prose h2 { font-size: 1.5rem; font-weight: 500; color: var(--text-main); margin: 2.5rem 0 1rem; }
+        .prose h3 { font-size: 1.15rem; font-weight: 500; color: var(--text-main); margin: 2rem 0 0.75rem; }
+        .prose a { color: var(--accent-blue); text-decoration: underline; }
+        .prose blockquote { border-left: 2px solid var(--accent-blue); padding-left: 1.5rem; margin: 1.5rem 0; font-style: italic; }
     </style>
 </head>
 <body>
-
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-bg focus:z-[100] skip-link text-white">Skip to main content</a>
     <div class="system-grid" aria-hidden="true"></div>
-    <div id="canvas-container" aria-hidden="true"></div>
 
-    <!-- GLOBAL NAVIGATION -->
     <nav class="sticky top-0 z-50 bg-bg/80 backdrop-blur-md border-b border-border-thin py-5">
         <div class="container flex justify-between items-center">
-            <div class="flex flex-col">
-                <div class="text-2xl font-body tracking-widest text-text-main">LREIX</div>
+            <a href="../index.html" class="flex flex-col no-underline">
+                <div class="text-2xl tracking-widest text-text-main">LREIX</div>
                 <div class="text-[0.55rem] font-display tracking-widest text-text-muted mt-1 uppercase">Infratech Systems</div>
-            </div>
-            <div class="hidden lg:flex gap-8 text-[0.65rem] font-body uppercase tracking-widest text-text-muted">
-                <a href="/infrastructure.html" class="hover:text-text-main transition-colors">Infrastructure</a>
+            </a>
+            <div class="hidden lg:flex gap-8 text-[0.65rem] uppercase tracking-widest text-text-muted">
+                <a href="../infrastructure.html" class="hover:text-text-main transition-colors">Infrastructure</a>
                 <div class="relative group">
                     <a href="#" class="hover:text-text-main transition-colors cursor-pointer" aria-haspopup="true" aria-expanded="false">Systems</a>
                     <div class="absolute left-0 mt-2 w-48 bg-bg border border-border-thin hidden group-hover:flex group-focus-within:flex flex-col z-50 shadow-xl">
-                        <a href="/systems/land.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors">LREIX Land</a>
-                        <a href="/systems/landvault.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors">LandVault</a>
-                        <a href="/systems/construct.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors">LREIX Construct</a>
-                        <a href="/systems/geo.html" class="px-4 py-3 hover:bg-white/[0.02] transition-colors">LREIX Geo</a>
+                        <a href="../systems/land.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors text-[0.65rem]">LREIX Land <span class="text-[#34d399] ml-1">Live</span></a>
+                        <a href="../systems/verify.html" class="px-4 py-3 hover:bg-white/[0.02] border-b border-border-thin transition-colors text-[0.65rem]">LREIX Verify <span class="text-[#34d399] ml-1">Live</span></a>
+                        <a href="../systems/geo.html" class="px-4 py-3 hover:bg-white/[0.02] transition-colors text-[0.65rem]">LREIX Geo <span class="text-[#fbbf24] ml-1">R&D</span></a>
                     </div>
                 </div>
                 <a href="../research.html" class="hover:text-text-main transition-colors">Research</a>
                 <a href="../partnerships.html" class="hover:text-text-main transition-colors">Partnerships</a>
-                <a href="/about.html" class="hover:text-text-main transition-colors">About Us</a>
-                <a href="#" class="hover:text-text-main transition-colors">Careers</a>
-                <a href="#" class="hover:text-text-main transition-colors">Contact</a>
+                <a href="../about.html" class="hover:text-text-main transition-colors">About</a>
+                <a href="../contact.html" class="hover:text-text-main transition-colors">Contact</a>
             </div>
             <div class="hidden lg:flex items-center justify-center w-8 h-8 rounded-full border border-border-thin">
                 <div class="glowing-dot" style="width: 6px; height: 6px;"></div>
@@ -169,359 +109,126 @@
     </nav>
     <main id="main-content">
 
-    <!-- HERO SECTION -->
-    <section class="relative z-10 pt-32 pb-16 min-h-[70vh] flex flex-col justify-center">
-        <div class="container grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="reveal">
-                <div class="meta-label mb-6 text-accent-blue">FLAGSHIP SYSTEM</div>
-                <h1 class="text-4xl md:text-5xl lg:text-7xl leading-[1.1] mb-4 text-text-main font-light tracking-tight">
-                    LREIX LAND
-                </h1>
-                <h2 class="text-xl md:text-2xl font-light text-text-muted mb-8 tracking-wide">
-                    Land Intelligence Infrastructure
-                </h2>
-                <div class="text-sm md:text-base text-text-muted mb-10 leading-relaxed max-w-lg space-y-4">
-                    <p>LREIX LAND transforms fragmented land records, ownership information, spatial data, legal records, and infrastructure relationships into connected intelligence environments.</p>
-                    <p>The platform is designed to help organizations understand not only what a parcel is, but how it evolved, who is connected to it, what risks exist, and how those risks change over time.</p>
-                </div>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#architecture" class="btn-primary">Explore Architecture <span>↓</span></a>
-                    <a href="#" class="btn-secondary">Request Demonstration <span>→</span></a>
-                </div>
+    <section class="pt-24 pb-16 relative z-10">
+        <div class="container max-w-4xl">
+            <div class="flex items-center gap-4 mb-6 reveal">
+                <div class="meta-label">FLAGSHIP SYSTEM</div>
+                <span class="status-live">Live</span>
             </div>
-            <div class="hidden lg:block relative h-full min-h-[400px]">
-                <!-- Complex parcel network visualization -->
+            <h1 class="text-4xl md:text-6xl font-light tracking-tight mb-4 reveal">LREIX LAND</h1>
+            <h2 class="text-xl text-text-muted font-light mb-6 reveal">Title Risk Scoring for Revenue and Urban Land</h2>
+            <p class="text-lg text-text-muted leading-relaxed max-w-2xl reveal">Takes a survey number or property ID, pulls available government records, cross-references them against uploaded ECs, and produces a 0–100 Title Risk Score with a plain-language explanation in English and Kannada.</p>
+        </div>
+    </section>
+
+    <section class="section-padding relative z-10 border-t border-border-thin">
+        <div class="container max-w-4xl">
+            <div class="meta-label mb-6 reveal">CAPABILITIES</div>
+            <h2 class="text-2xl font-light mb-10 reveal">What's Live Today</h2>
+            <div class="space-y-4">
+                <div class="panel reveal">
+                    <div class="flex items-start gap-4">
+                        <span class="status-live mt-1">Live</span>
+                        <div>
+                            <h3 class="font-medium mb-1">Survey-Number Based Revenue Land Scoring</h3>
+                            <p class="text-text-muted text-sm">Automated retrieval and scoring for revenue land parcels across Karnataka.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel reveal">
+                    <div class="flex items-start gap-4">
+                        <span class="status-live mt-1">Live</span>
+                        <div>
+                            <h3 class="font-medium mb-1">EC Cross-Referencing & Inconsistency Detection</h3>
+                            <p class="text-text-muted text-sm">Compares uploaded Encumbrance Certificates against government records to flag gaps and mismatches.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel reveal">
+                    <div class="flex items-start gap-4">
+                        <span class="status-live mt-1">Live</span>
+                        <div>
+                            <h3 class="font-medium mb-1">Bilingual Risk Explanation</h3>
+                            <p class="text-text-muted text-sm">Plain-language title risk breakdown in both English and Kannada.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel reveal">
+                    <div class="flex items-start gap-4">
+                        <span class="status-dev mt-1">In Dev</span>
+                        <div>
+                            <h3 class="font-medium mb-1">Urban Land Scoring for BDA/BBMP Properties</h3>
+                            <p class="text-text-muted text-sm">Scoring engine for urban parcels identified by PID and layout records.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel reveal">
+                    <div class="flex items-start gap-4">
+                        <span class="status-live mt-1">Live</span>
+                        <div>
+                            <h3 class="font-medium mb-1">Component-Level Scoring Breakdown</h3>
+                            <p class="text-text-muted text-sm">Audit-defensible breakdown showing exactly why a score landed where it did.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- THE PROBLEM & THE SHIFT -->
-    <section class="section-padding relative z-10 border-t border-border-thin bg-bg/40">
-        <div class="container grid grid-cols-1 md:grid-cols-2 gap-16">
-            <div class="reveal">
-                <div class="meta-label mb-3">THE CHALLENGE</div>
-                <h2 class="text-3xl font-light text-text-main mb-6">Land Information Exists.<br>Land Intelligence Does Not.</h2>
-                <div class="text-sm text-text-muted leading-relaxed space-y-4">
-                    <p>Land-related decisions often rely on fragmented information. Critical records may exist across Revenue Records, Survey Records, Registration Systems, Court Records, Utility Systems, Local Government Databases, and Historical Archives.</p>
-                    <p>Each source contains only part of the story. Relationships remain hidden. Ownership histories remain difficult to trace. Risks remain difficult to evaluate.</p>
-                    <p class="text-text-main font-light border-l border-accent-blue pl-4 mt-6">The result is uncertainty.</p>
+    <section class="section-padding relative z-10 bg-black/40 border-y border-border-thin">
+        <div class="container max-w-4xl text-center">
+            <h2 class="text-3xl font-light mb-6 reveal">Title Risk Should Be a Number,<br>Not a Guess.</h2>
+            <p class="text-text-muted max-w-xl mx-auto reveal">LREIX LAND transforms fragmented government records into a structured, explainable risk score — so law firms and lenders can verify land before money or signatures are committed.</p>
+        </div>
+    </section>
+
+    </main>
+    <footer class="border-t border-border-thin py-16 mt-24 relative z-10">
+        <div class="container">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div>
+                    <div class="text-xl tracking-widest mb-2">LREIX</div>
+                    <div class="text-[0.6rem] font-display tracking-widest text-text-muted uppercase mb-4">Infratech Systems Private Limited</div>
+                    <p class="text-xs text-text-muted leading-relaxed">Latent Risk Evaluation and Information eXchange</p>
+                    <p class="text-xs text-text-muted mt-2">CIN: U62099KA2026PTC218314</p>
                 </div>
-            </div>
-            <div class="reveal">
-                <div class="meta-label mb-3">THE SHIFT</div>
-                <h2 class="text-3xl font-light text-text-main mb-6">From Records to Intelligence</h2>
-                <div class="text-sm text-text-muted leading-relaxed space-y-4">
-                    <p>Traditional systems focus on storing information. LREIX LAND focuses on understanding information. The objective is not to retrieve documents. The objective is to answer questions.</p>
-                    <ul class="list-disc-custom mt-4 space-y-2">
-                        <li>Who controlled this parcel over time?</li>
-                        <li>What events affected ownership?</li>
-                        <li>Which organizations are connected?</li>
-                        <li>What risks are emerging?</li>
-                        <li>How reliable is the information?</li>
-                        <li>What relationships exist beyond the visible record?</li>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest text-text-muted mb-4">Platform</h4>
+                    <ul class="space-y-2 text-sm text-text-muted">
+                        <li><a href="../infrastructure.html" class="hover:text-text-main transition-colors">Infrastructure</a></li>
+                        <li><a href="../systems/land.html" class="hover:text-text-main transition-colors">LREIX Land</a></li>
+                        <li><a href="../systems/verify.html" class="hover:text-text-main transition-colors">LREIX Verify</a></li>
+                        <li><a href="../systems/geo.html" class="hover:text-text-main transition-colors">LREIX Geo</a></li>
                     </ul>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CORE CAPABILITIES -->
-    <section class="section-padding relative z-10 border-t border-border-thin bg-bg">
-        <div class="container">
-            <div class="mb-16 reveal text-center max-w-2xl mx-auto">
-                <div class="meta-label mb-3">CAPABILITIES</div>
-                <h2 class="text-3xl md:text-4xl font-light text-text-main">Land Intelligence Modules</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
-                <div class="panel">
-                    <h3 class="text-lg text-white mb-2">Ownership Intelligence</h3>
-                    <p class="text-xs text-text-muted mb-4 border-b border-border-thin pb-4">Understand ownership structures beyond simple title records.</p>
-                    <div class="text-xs text-text-muted space-y-3">
-                        <p><strong>Analyze:</strong> Current Ownership, Historical Ownership, Ownership Transfers, Ownership Networks, Ownership Concentration</p>
-                        <p class="text-accent-blue/80"><strong>Why It Matters:</strong> Ownership is rarely static. Understanding ownership evolution provides critical context for risk evaluation.</p>
-                    </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest text-text-muted mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-text-muted">
+                        <li><a href="../about.html" class="hover:text-text-main transition-colors">About Us</a></li>
+                        <li><a href="../research.html" class="hover:text-text-main transition-colors">Research</a></li>
+                        <li><a href="../partnerships.html" class="hover:text-text-main transition-colors">Partnerships</a></li>
+                        <li><a href="../careers.html" class="hover:text-text-main transition-colors">Careers</a></li>
+                    </ul>
                 </div>
-                
-                <div class="panel">
-                    <h3 class="text-lg text-white mb-2">Parcel Lineage Engine</h3>
-                    <p class="text-xs text-text-muted mb-4 border-b border-border-thin pb-4">Track parcel evolution across time.</p>
-                    <div class="text-xs text-text-muted space-y-3">
-                        <p><strong>Analyze:</strong> Subdivisions, Mergers, Re-surveys, Boundary Changes, Reclassifications</p>
-                        <p class="text-accent-blue/80"><strong>Why It Matters:</strong> A parcel today may represent multiple historical parcels. Lineage reconstruction reveals hidden context.</p>
-                    </div>
-                </div>
-                
-                <div class="panel">
-                    <h3 class="text-lg text-white mb-2">Registry Correlation</h3>
-                    <p class="text-xs text-text-muted mb-4 border-b border-border-thin pb-4">Connect information across multiple systems.</p>
-                    <div class="text-xs text-text-muted space-y-3">
-                        <p><strong>Connect:</strong> Registration Records, Revenue Records, Survey Systems, Supporting Documents</p>
-                        <p class="text-accent-blue/80"><strong>Why It Matters:</strong> Critical information often exists across multiple disconnected systems. Correlation creates visibility.</p>
-                    </div>
-                </div>
-                
-                <div class="panel">
-                    <h3 class="text-lg text-white mb-2">Risk Evaluation</h3>
-                    <p class="text-xs text-text-muted mb-4 border-b border-border-thin pb-4">Evaluate risk indicators across parcels, actors, documents, and events.</p>
-                    <div class="text-xs text-text-muted space-y-3">
-                        <p><strong>Examples:</strong> Ownership Conflicts, Boundary Disputes, Duplicate Claims, Litigation Signals, Documentation Inconsistencies</p>
-                        <p class="text-accent-blue/80"><strong>Why It Matters:</strong> Risk rarely appears as a single record. It emerges from patterns.</p>
-                    </div>
-                </div>
-                
-                <div class="panel">
-                    <h3 class="text-lg text-white mb-2">Event Intelligence</h3>
-                    <p class="text-xs text-text-muted mb-4 border-b border-border-thin pb-4">Track significant events affecting parcels.</p>
-                    <div class="text-xs text-text-muted space-y-3">
-                        <p><strong>Examples:</strong> Transfers, Registrations, Legal Proceedings, Government Actions, Survey Updates</p>
-                        <p class="text-accent-blue/80"><strong>Why It Matters:</strong> Events create context. Context creates intelligence.</p>
-                    </div>
-                </div>
-                
-                <div class="panel">
-                    <h3 class="text-lg text-white mb-2">Actor Intelligence</h3>
-                    <p class="text-xs text-text-muted mb-4 border-b border-border-thin pb-4">Understand relationships involving people and organizations.</p>
-                    <div class="text-xs text-text-muted space-y-3">
-                        <p><strong>Analyze:</strong> Individuals, Organizations, Institutions, Developers, Contractors</p>
-                        <p class="text-accent-blue/80"><strong>Why It Matters:</strong> Parcel risk often originates from actor behavior rather than parcel attributes.</p>
-                    </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest text-text-muted mb-4">Contact</h4>
+                    <p class="text-sm text-text-muted mb-2">Bengaluru, Karnataka, India</p>
+                    <a href="mailto:info@lreix.com" class="text-sm text-accent-blue hover:text-text-main transition-colors">info@lreix.com</a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- ARCHITECTURE & USE CASES -->
-    <section id="architecture" class="section-padding relative z-10 border-t border-border-thin bg-bg/40">
-        <div class="container grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div class="reveal">
-                <div class="meta-label mb-3">ARCHITECTURE</div>
-                <h2 class="text-3xl font-light text-text-main mb-8">How LREIX LAND Works</h2>
-                <div class="space-y-6">
-                    <div class="layer-item border-l border-border-thin pl-6 pb-6">
-                        <h3 class="text-sm tracking-widest text-white uppercase mb-1">Stage 1: Information Collection</h3>
-                        <p class="text-xs text-text-muted">Sources: Land Records, Survey Records, Registration Systems, Spatial Data, Government Sources, Documentation.</p>
-                    </div>
-                    <div class="layer-item border-l border-border-thin pl-6 pb-6">
-                        <h3 class="text-sm tracking-widest text-white uppercase mb-1">Stage 2: Entity Resolution</h3>
-                        <p class="text-xs text-text-muted">Identify: Parcels, Persons, Organizations, Documents, Events.</p>
-                    </div>
-                    <div class="layer-item border-l border-border-thin pl-6 pb-6">
-                        <h3 class="text-sm tracking-widest text-white uppercase mb-1">Stage 3: Relationship Mapping</h3>
-                        <p class="text-xs text-text-muted">Build connections between entities (e.g., Owner → Parcel, Transaction → Document).</p>
-                    </div>
-                    <div class="layer-item border-l border-border-thin pl-6 pb-6">
-                        <h3 class="text-sm tracking-widest text-white uppercase mb-1">Stage 4: Trust Evaluation</h3>
-                        <p class="text-xs text-text-muted">Measure Completeness, Consistency, Source Reliability, Freshness, and Evidence Strength.</p>
-                    </div>
-                    <div class="layer-item pl-6 pb-2" style="border-left-color: transparent;">
-                        <h3 class="text-sm tracking-widest text-white uppercase mb-1">Stage 5: Intelligence Generation</h3>
-                        <p class="text-xs text-text-muted">Generate Risk Signals, Ownership Insights, Parcel Histories, Networks, and Reports.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="reveal">
-                <div class="meta-label mb-3">APPLICATIONS</div>
-                <h2 class="text-3xl font-light text-text-main mb-8">Who Uses Land Intelligence</h2>
-                <div class="space-y-6 text-sm">
-                    <div class="panel bg-bg">
-                        <h4 class="text-white mb-2">Financial Institutions</h4>
-                        <p class="text-xs text-text-muted">Evaluate land-backed assets. Assess risk. Support due diligence. Improve decision quality.</p>
-                    </div>
-                    <div class="panel bg-bg">
-                        <h4 class="text-white mb-2">Legal Professionals</h4>
-                        <p class="text-xs text-text-muted">Investigate ownership history. Verify records. Identify conflicts. Support litigation analysis.</p>
-                    </div>
-                    <div class="panel bg-bg">
-                        <h4 class="text-white mb-2">Infrastructure Developers</h4>
-                        <p class="text-xs text-text-muted">Understand site context. Identify constraints. Improve planning. Reduce uncertainty.</p>
-                    </div>
-                    <div class="panel bg-bg">
-                        <h4 class="text-white mb-2">Government & Public Sector</h4>
-                        <p class="text-xs text-text-muted">Improve visibility. Support modernization. Strengthen verification workflows. Enhance analytical capabilities.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FINAL SECTION -->
-    <section class="relative z-10 min-h-[50vh] flex flex-col justify-center border-t border-border-thin bg-bg">
-        <div class="container text-center reveal">
-            <h2 class="text-3xl md:text-5xl font-light text-text-main tracking-tight mb-8">
-                <span class="block mb-2">Every Parcel Has A History.</span>
-                <span class="block mb-2">Every History Has Relationships.</span>
-                <span class="block">Every Relationship Contains Intelligence.</span>
-            </h2>
-            <p class="text-lg text-text-muted font-light mt-6">LREIX LAND transforms information into understanding.</p>
-            <div class="flex justify-center gap-4 mt-12">
-                <a href="/systems/landvault.html" class="btn-secondary text-xs">Explore LandVault <span>→</span></a>
-                <a href="/systems/geo.html" class="btn-secondary text-xs">Explore LREIX GEO <span>→</span></a>
-            </div>
-        </div>
-    </section>
-    
-    </main>
-    <footer class="border-t border-border-thin bg-bg pt-16 pb-12 relative z-10">
-        <div class="container grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12 text-sm text-text-muted reveal">
-            <div class="lg:col-span-2">
-                <div class="text-2xl font-body tracking-widest text-text-main mb-1">LREIX</div>
-                <div class="text-[0.55rem] font-display tracking-widest text-text-muted uppercase mb-6">Infratech Systems</div>
-                <p class="text-xs leading-relaxed mb-6 max-w-xs">Infrastructure Intelligence Systems<br>for Analytical Operations.</p>
-                <p class="text-xs text-white/30">&copy; 2024 LREIX Infratech Systems Pvt. Ltd.<br>All rights reserved.</p>
-            </div>
-            
-            <div>
-                <h4 class="text-white text-xs tracking-widest uppercase mb-6">Company</h4>
-                <ul class="flex flex-col gap-4 text-xs">
-                    <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Our Vision</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Leadership</a></li>
-                    <li><a href="../careers.html" class="hover:text-white transition-colors">Careers</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 class="text-white text-xs tracking-widest uppercase mb-6">Systems</h4>
-                <ul class="flex flex-col gap-4 text-xs">
-                    <li><a href="#" class="hover:text-white transition-colors uppercase">LREIX Land</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors uppercase">LREIX Construct</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors uppercase">LREIX Geo</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors uppercase">LREIX Verify</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 class="text-white text-xs tracking-widest uppercase mb-6">Resources</h4>
-                <ul class="flex flex-col gap-4 text-xs mb-8">
-                    <li><a href="#" class="hover:text-white transition-colors">Research</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Whitepapers</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Reports</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Insights</a></li>
-                </ul>
-                <h4 class="text-white text-xs tracking-widest uppercase mb-4">Contact</h4>
-                <ul class="flex flex-col gap-2 text-xs">
-                    <li>Bengaluru, Karnataka, India</li>
-                    <li>info@lreix.com</li>
-                    <li>+91 XXXXXXXXXX</li>
-                </ul>
+            <div class="border-t border-border-thin mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-xs text-text-muted">© 2026 LREIX Infratech Systems Private Limited. All rights reserved.</div>
+                <div class="text-[0.6rem] font-display tracking-widest text-text-muted uppercase">Title Risk Intelligence Infrastructure</div>
             </div>
         </div>
     </footer>
-
-    <!-- Three.js 3D Terrain Background -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        const initWebGL = () => {
-            const container = document.getElementById('canvas-container');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 25; 
-            camera.position.y = 10; 
-            camera.rotation.x = -0.4;
-            
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            container.appendChild(renderer.domElement);
-            
-            const geometry = new THREE.PlaneGeometry(120, 120, 150, 150);
-            geometry.rotateX(-Math.PI / 2);
-            
-            const vertexShader = `
-                varying vec2 vUv; 
-                varying float vElevation; 
-                uniform float uTime;
-                
-                void main() {
-                    vUv = uv; 
-                    vec3 pos = position;
-                    
-                    // Complex noise terrain generation
-                    float elevation = sin(pos.x * 0.1 + uTime * 0.1) * cos(pos.z * 0.1 + uTime * 0.1) * 4.0;
-                    elevation += sin(pos.x * 0.2 - uTime * 0.15) * cos(pos.z * 0.2 + uTime * 0.1) * 2.0;
-                    elevation += sin(pos.x * 0.5) * cos(pos.z * 0.5) * 0.5;
-                    
-                    pos.y += elevation; 
-                    vElevation = pos.y;
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-                }
-            `;
-            
-            const fragmentShader = `
-                varying float vElevation;
-                void main() {
-                    float mixStrength = (vElevation + 4.0) / 8.0;
-                    mixStrength = clamp(mixStrength, 0.0, 1.0);
-                    
-                    vec3 clay = vec3(0.98, 0.85, 0.83); // FAD9D3
-                    vec3 darkGrey = vec3(0.3, 0.28, 0.28); 
-                    
-                    vec3 color = mix(darkGrey, clay, mixStrength);
-                    
-                    // Fade out edges and lower elevation parts for depth
-                    float alpha = smoothstep(-3.0, 4.0, vElevation) * 0.6; // slightly more transparent
-                    gl_FragColor = vec4(color, alpha);
-                }
-            `;
-            
-            const material = new THREE.ShaderMaterial({
-                vertexShader, 
-                fragmentShader, 
-                uniforms: { uTime: { value: 0 } }, 
-                wireframe: true, 
-                transparent: true
-            });
-            
-            const plane = new THREE.Mesh(geometry, material);
-            scene.add(plane);
-            
-            let mouseX = 0; 
-            const windowHalfX = window.innerWidth / 2;
-            document.addEventListener('mousemove', (event) => { 
-                mouseX = (event.clientX - windowHalfX) * 0.0005; 
-            });
-            
-            const clock = new THREE.Clock();
-            const animate = () => {
-                requestAnimationFrame(animate);
-                material.uniforms.uTime.value = clock.getElapsedTime();
-                
-                plane.rotation.y += 0.0008; 
-                camera.position.x += (mouseX * 15 - camera.position.x) * 0.05;
-                camera.lookAt(scene.position);
-                
-                renderer.render(scene, camera);
-            };
-            
-            animate();
-            
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        };
-        
         document.addEventListener("DOMContentLoaded", () => {
-            initWebGL();
-            
-            // GSAP Animations
             gsap.registerPlugin(ScrollTrigger);
-            
-            const reveals = document.querySelectorAll('.reveal');
-            reveals.forEach(reveal => {
-                gsap.to(reveal, {
-                    scrollTrigger: {
-                        trigger: reveal,
-                        start: "top 85%",
-                        toggleActions: "play none none none"
-                    },
-                    opacity: 1,
-                    y: 0,
-                    duration: 1.2,
-                    ease: "power3.out"
+            document.querySelectorAll('.reveal').forEach(el => {
+                gsap.to(el, {
+                    scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" },
+                    opacity: 1, y: 0, duration: 1.2, ease: "power3.out"
                 });
             });
         });
